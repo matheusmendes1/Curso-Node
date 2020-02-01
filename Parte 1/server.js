@@ -24,6 +24,7 @@
     dependências instaladas:
         |- express
         |- nodemon
+        |- sqlite
 */
 
 const app = require('./src/config/custom-express');
