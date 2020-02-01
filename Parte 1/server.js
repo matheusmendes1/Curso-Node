@@ -12,6 +12,7 @@
     |-- node_modules < contém os módulos instalados do node >
     |-- src < contém todo e qualquer código relativo a nossa aplicação >
         |-- app < Pasta que vai armazenar o nosso código restritamente a lógicas da aplicação >
+            |-- infra
             |-- routes
             |-- views
                 |-- livros

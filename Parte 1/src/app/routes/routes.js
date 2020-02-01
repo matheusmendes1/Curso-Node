@@ -1,3 +1,5 @@
+const LivroDao = require('../infra/livro-dao');
+
 const db = require('../../config/database');
 
 module.exports = (app) => {
@@ -13,7 +15,7 @@ module.exports = (app) => {
                         <meta http-equiv="X-UA-Compatible" content="ie=edge">
                         <title>Hello World!</title>
                     </head>
-    
+
                     <body>
                         <h1>Hello World!</h1>
                     </body>
@@ -24,17 +26,17 @@ module.exports = (app) => {
     
     app.get('/livros', (req, resp) => {
 
-        const query = 'SELECT * FROM livros';
+        const livroDao = new LivroDao(db);
 
-        db.all(query, (error, results) => {
-
-            resp.marko( 
+        livroDao
+            .lista()
+            .then(livros => resp.marko(
                 require('../views/livros/lista/lista.marko'),
                 {
-                    livros: results
+                    livros: livros
                 }
-            );
-
-        });
+            ))
+            .catch(erro => console.log(erro));
     });
+
 };
