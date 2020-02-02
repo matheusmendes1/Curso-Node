@@ -26,6 +26,7 @@
         |- express
         |- nodemon
         |- sqlite
+        |- bodyparser
 */
 
 const app = require('./src/config/custom-express');
