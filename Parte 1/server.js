@@ -13,9 +13,12 @@
     |-- src < contém todo e qualquer código relativo a nossa aplicação >
         |-- app < Pasta que vai armazenar o nosso código restritamente a lógicas da aplicação >
             |-- infra
+            |-- public
+                |-- js
             |-- routes
             |-- views
                 |-- livros
+                    |-- form
                     |-- lista
         |-- config < Armazenar códigos de configuração da nossa aplicação >
 
@@ -27,6 +30,7 @@
         |- nodemon
         |- sqlite
         |- bodyparser
+        |- method-override
 */
 
 const app = require('./src/config/custom-express');

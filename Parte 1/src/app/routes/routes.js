@@ -4,6 +4,7 @@ const db = require('../../config/database');
 
 module.exports = (app) => {
 
+    /* Rota raíz */
     app.get('/', (req, resp) => {
         resp.send(
             `
@@ -24,6 +25,7 @@ module.exports = (app) => {
         );
     });
     
+    /* Rota para Listagem de livros */
     app.get('/livros', (req, resp) => {
 
         const livroDao = new LivroDao(db);
@@ -39,10 +41,28 @@ module.exports = (app) => {
             .catch(erro => console.log(erro));
     });
 
+    /* Rota para Cadastro de livros */
     app.get('/livros/form', (req, resp) => {
-        resp.marko(require('../views/livros/form/form.marko'));
+        resp.marko(require('../views/livros/form/form.marko'), { livro : {} });
     });
 
+    /* Rota para Edição de livros */
+    app.get('/livros/form/:id', (req, resp) => {
+        
+        const id = req.params.id;
+        const livroDao = new LivroDao(db);
+
+        livroDao
+            .buscaPorId(id)
+            .then(livro => 
+                    resp.marko(
+                        require('../views/livros/form/form.marko'),
+                        { livro : livro }
+                    ))
+            .catch(erro => console.log(erro));
+    });
+
+    /* Rota para Adicionar livros */
     app.post('/livros', (req, resp) => {
         console.log(req.body);
 
@@ -53,4 +73,26 @@ module.exports = (app) => {
             .then(resp.redirect('/livros'))
             .catch(erro => console.log(erro));
     });
+
+    app.put('/livros', (req, resp) => {
+        console.log(req.body);
+
+        const livroDao = new LivroDao(db);
+
+        livroDao
+            .atualiza(req.body)
+            .then(resp.redirect('/livros'))
+            .catch(erro => console.log(erro));
+    });
+
+    /* Rota para Deleção de livro */
+    app.delete('/livros/:id', (req, resp) => {
+        const id = req.params.id;
+
+        const livroDao = new LivroDao(db);
+        livroDao
+            .remove(id)
+            .then(() => resp.status(200).end())
+            .catch(erro => console.log(erro));
+    })
 };
