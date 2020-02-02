@@ -1,2 +1,1 @@
-console.log('Ola mundo node!');
-alert('matheus');
+console.log('Ola Mundo Node!');
